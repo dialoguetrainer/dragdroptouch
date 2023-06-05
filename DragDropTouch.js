@@ -137,26 +137,17 @@ var DragDropTouch;
             if (DragDropTouch._instance) {
                 throw 'DragDropTouch instance already created.';
             }
-            // detect passive event support
-            // https://github.com/Modernizr/Modernizr/issues/1894
-            var supportsPassive = false;
-            document.addEventListener('test', function () { }, {
-                get passive() {
-                    supportsPassive = true;
-                    return true;
-                }
-            });
             // listen to touch events
             if (navigator.maxTouchPoints) {
-                var d = document, 
-                    ts = this._touchstart.bind(this), 
-                    tm = this._touchmove.bind(this), 
-                    te = this._touchend.bind(this), 
-                    opt = supportsPassive ? { passive: false, capture: false } : false;
+                var d = document,
+                    ts = this._touchstart.bind(this),
+                    tm = this._touchmove.bind(this),
+                    te = this._touchend.bind(this),
+                    opt = { passive: false, capture: true };
                 d.addEventListener('touchstart', ts, opt);
                 d.addEventListener('touchmove', tm, opt);
-                d.addEventListener('touchend', te);
-                d.addEventListener('touchcancel', te);
+                d.addEventListener('touchend', te, opt);
+                d.addEventListener('touchcancel', te, opt);
             }
         }
         /**
