@@ -144,7 +144,7 @@ var DragDropTouch;
                     tm = this._touchmove.bind(this),
                     te = this._touchend.bind(this),
                     opt = { passive: false, capture: true };
-                d.addEventListener('touchstart', ts, opt);
+                d.addEventListener('touchstart', ts, { ...opt, passive: true });
                 d.addEventListener('touchmove', tm, opt);
                 d.addEventListener('touchend', te, opt);
                 d.addEventListener('touchcancel', te, opt);
